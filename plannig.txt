@@ -1,0 +1,12 @@
+Backend: 
+-server:Node.js, express
+-database:PostgreSQL (elephant sql)
+-connect to the database with knex
+
+Frontend:
+-react  
+-state management with redux
+-tailwind
+
+Api's:
+-google map api
