@@ -9,4 +9,19 @@ Frontend:
 -tailwind
 
 Api's:
--google map api
+-react-leafleft api
+
+
+tables:
+-books
+-categories
+-users
+-book assigning
+-book status
+-assigning status
+
+additional functionalities:
+-map the book categories by different colors
+-an admin which will be able to manage the users
+-comments on a book
+
