@@ -1,5 +1,4 @@
 
-import express from "express";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import jwt_decode from 'jwt-decode';
@@ -29,8 +28,31 @@ export const register=async(req,res)=>{
         console.log(e);
         res.status(404).json({msg:'email already exists'})
     })
-
-        
+   
 }
 
+export const login=async(req,res)=>{
+    try{
+        const user=await db('users').select('*').where({email:req.body.email.toLowerCase()});
 
+        const match=await bcrypt.compare(req.body.password,user[0].password);
+        if(!match) return res.status(400).json({msg:'wrong password'});
+
+        const user_id=user[0].user_id;
+        const email=user[0].email;
+
+        const token=jwt.sign({user_id,email},process.env.ACCESS_TOKEN_SECRET,{
+            expiresIn:'30s'
+        });
+
+        res.cookie('accessToken',token,{
+            httpOnly:true,
+            maxAge:30*1000
+        });
+
+        res.json({token:token})
+    }catch(e){
+        console.log(e);
+        res.status(404).json({msg:'email not found'})
+    }
+}
