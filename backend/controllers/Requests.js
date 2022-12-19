@@ -13,7 +13,7 @@ export const newRequest = (req, res) => {
 }
 
 export const acceptRequest = (req, res) => {
-    const { book_assigning_id,receivedat user_id, book_id } = req.body;
+    const { book_assigning_id,receivedat ,user_id, book_id } = req.body;
     db('book_assigning')
         .where({ book_assigning_id: book_assigning_id })
         .update({
@@ -40,3 +40,14 @@ const giveBook = (user_id, book_id,givenat) => {
         })
 }
 
+export const cancelRequest=(req,res)=>{
+    const {book_assigning_id}=req.body;
+    db('book_assigning')
+    .where({
+        book_assigning_id
+    })
+    .del()
+    .returning('*')
+    .then(rows=>res.json(rows))
+    .catch(e=>res.status(404).json({msg:e.message}))
+}
