@@ -35,10 +35,5 @@ const newBookAssigning=(book_id,user_id,status,date)=>{
     const addedat=`${year}-${month}-${day}`
     db('book_assigning')
     .insert(user_id,book_id,status,addedat)
-    .returning('*')
-    .then(rows=>res.json(rows))
-    .catch(e=>{
-        console.log(e);
-        res.status(404).json({msg:e.message});
-    })
+    
 }
