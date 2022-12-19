@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser';
 import { router } from './routes/Categories.js';
 import { booksRouter } from './routes/Books.js';
 import { users_router } from './routes/Users.js';
+import { reqRouter } from './routes/Requests.js';
 
 const app=express();
 dotenv.config();
@@ -17,6 +18,7 @@ app.use(express.urlencoded({extended:true}));
 app.use(router);
 app.use(booksRouter);
 app.use(users_router);
+app.use(reqRouter);
 
 app.listen(process.env.PORT || 8080 ,()=>{
     console.log(`server running on ${process.env.PORT||8080}`);
