@@ -1,12 +1,22 @@
 import db from "../config/elephantsql.js";
 
 export const getBooks =async  (req, res) => {
-    try {
-        const rows = await db('books').select('*');
-       res.json(rows);
-    } catch (e) {
-         res.status(404).json({ msg: e.message })
-    }
+    // try {
+    //     const rows = await db('books').select('*');
+    //    res.json(rows);
+    // } catch (e) {
+    //      res.status(404).json({ msg: e.message })
+    // }
+
+    db('books')
+    .join('book_assigning','books.book_id','=','book_assigning.book_id')
+    .join('users','users.user_id','=','book_assigning.user_id')
+    .select('*')
+    .then(rows=>res.json(rows))
+    .catch(e=>{
+        console.log(e);
+        res.status(404).json({msg:e.message});
+    })
 
 }
 
