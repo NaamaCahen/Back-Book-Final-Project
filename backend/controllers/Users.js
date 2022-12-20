@@ -57,6 +57,13 @@ export const login=async(req,res)=>{
     }
 }
 
+export const logout=(req,res)=>{
+    const accessToken=req.cookies.accessToken;
+    if(!accessToken) return res.status(204).json({msg:'cleared'})
+    res.clearCookie('accessToken');
+    res.status(200).json()
+}
+
 export const token=(req,res)=>{
     const accessToken=req.cookies.accessToken || req.headers['x-access-token'];
 
