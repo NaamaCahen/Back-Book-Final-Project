@@ -5,5 +5,5 @@ export const router=express.Router();
 
 router.get('/categories',getCategories)
 router.get('/ages',getAges)
-router.get('/ages',getBookStatus)
-router.get('/ages',getAssigningStatus)
+router.get('/bookStatus',getBookStatus)
+router.get('/assigningStatus',getAssigningStatus)
