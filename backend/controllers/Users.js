@@ -56,3 +56,22 @@ export const login=async(req,res)=>{
         res.status(404).json({msg:'email not found'})
     }
 }
+
+export const token=(req,res)=>{
+    const accessToken=req.cookies.accessToken || req.headers['x-access-token'];
+
+    const decode=jwt_decode(accessToken);
+
+    console.log(decode.user_id,decode.email);
+
+    const token=jwt.sign({user_id:decode.user_id,email:decode.email},process.env.ACCESS_TOKEN_SECRET,{
+        expiresIn:'120s'
+    });
+
+    res.cookie('accessToken',token,{
+        httpOnly:true,
+        maxAge:120*1000
+    });
+
+    res.status(200).json({token:accessToken})
+}
