@@ -1,13 +1,15 @@
 import React from 'react'
+import {useNavigate} from 'react-router-dom'
 
 function Login() {
+    const navigate=useNavigate();
     const login=(e)=>{
         e.preventDefault();
             const user = {
                 email: e.target.email.value,
                 password: e.target.password.value
             }
-            console.log(user);
+            
     
         fetch(`http://localhost:4000/login`,{
             method:'POST',
@@ -19,6 +21,10 @@ function Login() {
         .then(res=>res.json())
         .then(data=>{
             console.log(data);
+            if(data.token){
+                localStorage.setItem('token',data.token)
+                navigate('/home')
+            }
         })
         .catch(e=>{
             console.log(e);

@@ -1,6 +1,8 @@
 import React from 'react'
+import {useNavigate} from 'react-router-dom';
 
 function Register() {
+    const navigate=useNavigate();
     const register = (e) => {
         e.preventDefault();
         const user = {
@@ -25,6 +27,10 @@ function Register() {
         .then(res=>res.json())
         .then(data=>{
             console.log(data);
+            if(!data.msg){
+                localStorage.setItem('token',data.token)
+                navigate('/home');
+            }
         })
         .catch(e=>{
             console.log(e);

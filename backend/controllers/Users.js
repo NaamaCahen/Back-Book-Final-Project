@@ -22,7 +22,19 @@ export const register=async(req,res)=>{
         phone
     }).returning('*')
     .then(rows=>{
-        res.json(rows)
+        const user_id=rows[0].user_id;
+        const email=rows[0].email;
+        const token=jwt.sign({user_id,email},process.env.ACCESS_TOKEN_SECRET,{
+            expiresIn:'30s'
+        });
+
+        res.cookie('accessToken',token,{
+            httpOnly:true,
+            maxAge:30*1000
+        });
+
+        res.json({token:token})
+        
     })
     .catch(e=>{
         console.log(e);
