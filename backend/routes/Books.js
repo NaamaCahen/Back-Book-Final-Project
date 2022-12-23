@@ -4,5 +4,5 @@ import { VerifyToken } from '../middlewares/VerifyToken.js';
 
 export const booksRouter=express.Router();
 
-booksRouter.get('/books',VerifyToken, getBooks);
-booksRouter.post('/books',VerifyToken,newBook);
+booksRouter.get('/books', getBooks);
+booksRouter.post('/books',newBook);

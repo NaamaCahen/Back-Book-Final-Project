@@ -7,6 +7,7 @@ import Navbar from './components/Navbar';
 import Register from './components/Register';
 import Home from './components/Home';
 import Welcome from './components/Welcome';
+import Auth from './authentication/Auth';
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path='/' element={<Welcome/>}/>
-          <Route path='/home' element={<Home/>}/>
+          <Route path='/home' element={<Auth><Home/></Auth>}/>
           <Route path='/login' element={<Login/>}/>
           <Route path='/register' element={<Register/>}/>
           <Route path='/myBooks' element={<Login/>}/>
