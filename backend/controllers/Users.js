@@ -61,7 +61,7 @@ export const login=async(req,res)=>{
             httpOnly:true,
             maxAge:30*1000
         });
-
+        console.log(res.cookie.accessToken);
         res.json({token:token})
     }catch(e){
         console.log(e);
