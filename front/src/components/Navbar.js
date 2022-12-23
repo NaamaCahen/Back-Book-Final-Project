@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useEffect ,useState} from 'react';
 
 const navigation = [
-    { id: 0, name: 'Home', href: '/', current: true },
+    { id: 0, name: 'Home', href: '/home', current: true },
     { id: 1, name: 'My Books', href: '/myBooks', current: false },
     { id: 2, name: 'Search', href: '/search', current: false },
 

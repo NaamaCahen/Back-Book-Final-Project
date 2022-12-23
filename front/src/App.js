@@ -1,10 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { useState } from 'react';
 import Login from './components/Login';
 import Navbar from './components/Navbar';
 import Register from './components/Register';
 import Home from './components/Home';
+import Welcome from './components/Welcome';
 
 function App() {
   return (
@@ -12,7 +14,8 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route path='/' element={<Home/>}/>
+          <Route path='/' element={<Welcome/>}/>
+          <Route path='/home' element={<Home/>}/>
           <Route path='/login' element={<Login/>}/>
           <Route path='/register' element={<Register/>}/>
           <Route path='/myBooks' element={<Login/>}/>
