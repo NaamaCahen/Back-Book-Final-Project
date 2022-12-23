@@ -7,7 +7,7 @@ export   function MyMapComponent() {
         <MapContainer
         style={{ width: "100%", height: "100vh" }}
         zoom={13}
-        center={locate({setView: true, maxZoom: 16})}
+        center={[32.0889388, 34.8264839 ]}
         scrollWheelZoom={true}
         fadeAnimation={true}
         markerZoomAnimation={true}
