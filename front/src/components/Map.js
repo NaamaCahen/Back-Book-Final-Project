@@ -6,7 +6,7 @@ function MyComponent(props) {
     const map = useMap()
   
     useEffect(()=>{
-        map.setView(props.position)
+        map.flyTo(props.position)
     },[props.position])
   }
 
