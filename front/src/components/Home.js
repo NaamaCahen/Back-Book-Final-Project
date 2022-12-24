@@ -3,7 +3,7 @@ import React from 'react'
 import {MyMapComponent} from './Map';
 import { useState,useEffect } from 'react';
 import { useSelector,useDispatch } from 'react-redux';
-import { count, fetchBooks } from '../redux/booksSlice';
+import { fetchBooks } from '../redux/booksSlice';
 import jwt_decode from 'jwt-decode';
 
 function Home() {
