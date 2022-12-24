@@ -9,14 +9,7 @@ function Home() {
     useEffect(()=>{
         const decode=jwt_decode(localStorage.getItem('token'));
         console.log(decode);
-        function getBooks(){
-           fetch(`http://localhost:4000/books`)
-        .then(res=>res.json())
-        .then(data=>console.log(data))
-        .catch(e=>console.log(e)) 
-        }
-        getBooks()
-        
+       
     },[])
     return (
         <>
