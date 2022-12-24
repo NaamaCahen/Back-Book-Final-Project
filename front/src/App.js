@@ -8,6 +8,7 @@ import Register from './components/Register';
 import Home from './components/Home';
 import Welcome from './components/Welcome';
 import Auth from './authentication/Auth';
+import Search from './components/Search';
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
           <Route path='/login' element={<Login/>}/>
           <Route path='/register' element={<Register/>}/>
           <Route path='/myBooks' element={<Login/>}/>
-          <Route path='/search' element={<Login/>}/>
+          <Route path='/search' element={<Search/>}/>
           <Route path='/logout' element={<Login/>}/>
           <Route path='/profile' element={<Login/>}/>
         </Routes>
