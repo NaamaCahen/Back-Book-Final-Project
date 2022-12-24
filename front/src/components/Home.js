@@ -2,21 +2,17 @@ import React from 'react'
 // import Map from './Map'
 import {MyMapComponent} from './Map';
 import { useState,useEffect } from 'react';
+import { useSelector,useDispatch } from 'react-redux';
+import { fetchBooks } from '../redux/booksSlice';
 import jwt_decode from 'jwt-decode';
 
 function Home() {
-    const [books,setBooks]=useState([])
+    const books=useSelector((state)=>state.booksReducer.booksArr)
+    const dispatch=useDispatch();
     useEffect(()=>{
         const decode=jwt_decode(localStorage.getItem('token'));
         console.log(decode);
-        function getBooks(){
-           fetch(`http://localhost:4000/books`)
-        .then(res=>res.json())
-        .then(data=>console.log(data))
-        .catch(e=>console.log(e)) 
-        }
-        getBooks()
-        
+       dispatch(fetchBooks())
     },[])
     return (
         <>
