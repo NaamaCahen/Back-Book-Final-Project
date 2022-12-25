@@ -1,15 +1,17 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react';
-import { searchByAuthorFirst, searchByTitle, searchByAuthorLast, fetchCategories, searchByCategory } from '../redux/booksSlice';
+import { searchByAuthorFirst, searchByTitle, searchByAuthorLast, fetchCategories, searchByCategory,searchByAge, fetchAges } from '../redux/booksSlice';
 
 function SearchBar() {
   const books = useSelector((state) => state.booksReducer.booksArr);
   const categories = useSelector(state => state.booksReducer.categories)
+  const ages=useSelector(state=>state.booksReducer.ages)
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchCategories())
+    dispatch(fetchCategories());
+    dispatch(fetchAges());
   }, [])
 
   return (
@@ -35,20 +37,34 @@ function SearchBar() {
 
 
       {/* //search by category */}
-      <label htmlFor="autorFirstName" className="block text-sm font-medium text-gray-700">
+      <label htmlFor="" className="block text-sm font-medium text-gray-700">
         by category
       </label>
       <select className='block' onChange={(e) => dispatch(searchByCategory(e.target.value))}>
         <option></option>
         {
-          categories.map(item => {
+          categories.map((item,i) => {
             return (
-              <option key={item.category_id}>{item.category_name}</option>
+              <option key={i}>{item.category_name}</option>
             )
           })
         }
       </select>
 
+      {/* search by age */}
+      <label htmlFor="" className="block text-sm font-medium text-gray-700">
+        by age
+      </label>
+      <select className='block' onChange={(e) => dispatch(searchByAge(e.target.value))}>
+        <option></option>
+        {
+          ages.map((item,i) => {
+            return (
+              <option key={i}>{item.age_description}</option>
+            )
+          })
+        }
+      </select>
     </>
   )
 }

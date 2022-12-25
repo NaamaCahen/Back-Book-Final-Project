@@ -9,6 +9,7 @@ const initialState={
     categories:[],
     byCategory:'',
     ages:[],
+    byAge:''
 }
 
 
@@ -29,6 +30,14 @@ export const fetchCategories=createAsyncThunk(
   }
 )
 
+export const fetchAges=createAsyncThunk(
+  'books/fetchAgesStatus',
+  async()=>{
+    const response=await fetch('/ages')
+    return await  response.json()
+  }
+)
+
 
 export const booksSlice=createSlice({
     name:'books',
@@ -45,8 +54,11 @@ export const booksSlice=createSlice({
       },
       searchByCategory:(state,action)=>{
         state.byCategory=action.payload
-        console.log(state.byCategory);
       },
+      searchByAge:(state,action)=>{
+        state.byAge=action.payload
+        console.log(state.byAge);
+      }
     },
     extraReducers:(builder)=>{
         builder.addCase(fetchBooks.fulfilled,(state,action)=>{
@@ -65,11 +77,19 @@ export const booksSlice=createSlice({
           state.categories=[]
           state.error=action.error.message
         })
+        builder.addCase(fetchAges.fulfilled,(state,action)=>{
+          state.ages=action.payload
+          state.error=''
+        })
+        builder.addCase(fetchAges.rejected,(state,action)=>{
+          state.ages=[]
+          state.error=action.error.message
+        })
     },
   
 })
 
 // Destructure and export the plain action creators
- export const {searchByTitle,searchByAuthorFirst,searchByAuthorLast,searchByCategory}=booksSlice.actions;
+ export const {searchByTitle,searchByAuthorFirst,searchByAuthorLast,searchByCategory,searchByAge}=booksSlice.actions;
  
 export default booksSlice.reducer;
