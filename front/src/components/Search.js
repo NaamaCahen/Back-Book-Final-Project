@@ -2,6 +2,7 @@ import React from 'react';
 import SearchBar from './SearchBar';
 import { useSelector,useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import { initilizeSearch } from '../redux/booksSlice';
 
 function Search() { 
   const books=useSelector(state=>state.booksReducer.booksArr);
@@ -10,6 +11,11 @@ function Search() {
   const lastName=useSelector(state=>state.booksReducer.byAuthorLast);
   const category=useSelector(state=>state.booksReducer.byCategory);
   const age=useSelector(state=>state.booksReducer.byAge);
+  const dispatch=useDispatch();
+
+  useEffect(()=>{
+    dispatch(initilizeSearch())
+  },[])
 
   return (
     <>
