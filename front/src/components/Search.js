@@ -7,6 +7,7 @@ function Search() {
   const title=useSelector(state=>state.booksReducer.byTitle);
   const firstName=useSelector(state=>state.booksReducer.byAuthorFirst);
   const lastName=useSelector(state=>state.booksReducer.byAuthorLast);
+  const category=useSelector(state=>state.booksReducer.byCategory);
   const books=useSelector(state=>state.booksReducer.booksArr);
 
   return (
@@ -17,9 +18,13 @@ function Search() {
         <div>
         {
           books.filter(item=>{
+            console.log(item.category_name)
             return item.title.toLowerCase().includes(title.toLowerCase())&&
             item.author_first_name.toLowerCase().includes(firstName.toLowerCase())&&
-            item.author_last_name.toLowerCase().includes(lastName.toLowerCase())
+            item.author_last_name.toLowerCase().includes(lastName.toLowerCase())&&
+            item.category_name.toLowerCase().includes(category.toLowerCase())
+            
+
           })
           .map(item=>{
             return(

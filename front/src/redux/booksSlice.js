@@ -6,6 +6,9 @@ const initialState={
     byTitle:'',
     byAuthorFirst:'',
     byAuthorLast:'',
+    categories:[],
+    byCategory:'',
+    ages:[],
 }
 
 
@@ -18,7 +21,13 @@ const initialState={
   }
 )
 
-
+export const fetchCategories=createAsyncThunk(
+  'books/fetchCategoriesStatus',
+  async()=>{
+    const response=await fetch('/categories')
+    return await  response.json()
+  }
+)
 
 
 export const booksSlice=createSlice({
@@ -30,29 +39,37 @@ export const booksSlice=createSlice({
       },
       searchByAuthorFirst:(state,action)=>{
         state.byAuthorFirst=action.payload;
-        console.log(state.byAuthorFirst);
       },
       searchByAuthorLast:(state,action)=>{
         state.byAuthorLast=action.payload;
-        console.log(state.byAuthorLast);
-
+      },
+      searchByCategory:(state,action)=>{
+        state.byCategory=action.payload
+        console.log(state.byCategory);
       },
     },
     extraReducers:(builder)=>{
         builder.addCase(fetchBooks.fulfilled,(state,action)=>{
             state.booksArr=action.payload
-            console.log(state.booksArr);
-            console.log(action);
             state.error=''
         })
         builder.addCase(fetchBooks.rejected,(state,action)=>{
             state.booksArr=[]
             state.error=action.error.message
         })
-    }
+        builder.addCase(fetchCategories.fulfilled,(state,action)=>{
+          state.categories=action.payload
+          state.error=''
+        })
+        builder.addCase(fetchCategories.rejected,(state,action)=>{
+          state.categories=[]
+          state.error=action.error.message
+        })
+    },
+  
 })
 
 // Destructure and export the plain action creators
- export const {searchByTitle,searchByAuthorFirst,searchByAuthorLast}=booksSlice.actions;
+ export const {searchByTitle,searchByAuthorFirst,searchByAuthorLast,searchByCategory}=booksSlice.actions;
  
 export default booksSlice.reducer;
