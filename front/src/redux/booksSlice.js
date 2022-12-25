@@ -3,7 +3,9 @@ import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
 const initialState={
     booksArr:[],
     error:'',
-    byTitle:''
+    byTitle:'',
+    byAuthorFirst:'',
+    byAuthorLast:'',
 }
 
 
@@ -11,10 +13,12 @@ const initialState={
   'books/fetchBooksStatus',
   // Declare the type your function argument here:
   async () => {
-    const response = await fetch(`http://localhost:4000/books`)
+    const response = await fetch(`/books`)
     return await response.json()
   }
 )
+
+
 
 
 export const booksSlice=createSlice({
@@ -23,8 +27,16 @@ export const booksSlice=createSlice({
     reducers:{
       searchByTitle:(state,action)=>{
         state.byTitle=action.payload;
-        console.log(state.byTitle);
-      }
+      },
+      searchByAuthorFirst:(state,action)=>{
+        state.byAuthorFirst=action.payload;
+        console.log(state.byAuthorFirst);
+      },
+      searchByAuthorLast:(state,action)=>{
+        state.byAuthorLast=action.payload;
+        console.log(state.byAuthorLast);
+
+      },
     },
     extraReducers:(builder)=>{
         builder.addCase(fetchBooks.fulfilled,(state,action)=>{
@@ -41,6 +53,6 @@ export const booksSlice=createSlice({
 })
 
 // Destructure and export the plain action creators
- export const {searchByTitle}=booksSlice.actions;
+ export const {searchByTitle,searchByAuthorFirst,searchByAuthorLast}=booksSlice.actions;
  
 export default booksSlice.reducer;

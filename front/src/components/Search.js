@@ -5,6 +5,8 @@ import { useEffect } from 'react';
 
 function Search() {
   const title=useSelector(state=>state.booksReducer.byTitle);
+  const firstName=useSelector(state=>state.booksReducer.byAuthorFirst);
+  const lastName=useSelector(state=>state.booksReducer.byAuthorLast);
   const books=useSelector(state=>state.booksReducer.booksArr);
 
   return (
@@ -15,7 +17,9 @@ function Search() {
         <div>
         {
           books.filter(item=>{
-            return item.title.toLowerCase().includes(title.toLowerCase())
+            return item.title.toLowerCase().includes(title.toLowerCase())&&
+            item.author_first_name.toLowerCase().includes(firstName.toLowerCase())&&
+            item.author_last_name.toLowerCase().includes(lastName.toLowerCase())
           })
           .map(item=>{
             return(
