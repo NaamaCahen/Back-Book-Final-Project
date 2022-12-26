@@ -3,6 +3,7 @@ import SearchBar from './SearchBar';
 import { useSelector,useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { initilizeSearch } from '../redux/booksSlice';
+import Book from './Book';
 
 function Search() { 
   const books=useSelector(state=>state.booksReducer.booksArr);
@@ -34,10 +35,7 @@ function Search() {
           })
           .map(item=>{
             return(
-              <div >
-                <p>{item.title}</p>
-                <p>{item.author_first_name} {item.author_last_name}</p>
-              </div>
+              <Book book={item}/>
             )
           })
         }</div>
