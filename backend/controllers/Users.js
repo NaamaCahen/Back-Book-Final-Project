@@ -69,6 +69,16 @@ export const login=async(req,res)=>{
     }
 }
 
+export const userById=async(req,res)=>{
+    const {id}=req.params;
+    try{
+            const user=await db('users').select('*').where({user_id:id})
+            res.json(user)
+    }catch(e){
+        res.status(404).json({msg:'user not found'})
+    }
+}
+
 export const logout=(req,res)=>{
     const accessToken=req.cookies.accessToken;
     if(!accessToken) return res.status(204).json({msg:'cleared'})
