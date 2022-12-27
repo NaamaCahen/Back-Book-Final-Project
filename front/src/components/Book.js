@@ -25,13 +25,13 @@ function Book(props) {
                 <React.Fragment>
                     <Button gradientDuoTone='purpleToBlue'onClick={openModal} >for more details</Button>
                     <Modal show={isShowing} onClose={closeModal}>
-                        <Modal.Header>requesting a book</Modal.Header>
+                        <Modal.Header>requesting a book - "{props.book.title}"</Modal.Header>
                         <Modal.Body>
                         By clicking the "send request" button, a message will be sent to the book owner with your contact information, you will receive his as well, so you can contact each other and get the book you want.
                         </Modal.Body>
                         <Modal.Footer>
                             <Button onClick={sent}>send request</Button>
-                            <Button color='grey' outline={true} onClick={closeModal}>cancel</Button>
+                            <Button color='failure' outline={true}  onClick={closeModal}>cancel</Button>
                         </Modal.Footer>
                     </Modal>
                 </React.Fragment>
