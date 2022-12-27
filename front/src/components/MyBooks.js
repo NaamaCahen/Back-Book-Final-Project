@@ -1,7 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {Button, Tabs} from 'flowbite-react';
+import {useDispatch,useSelector} from 'react-redux'
+import { fetchMyBooks } from '../redux/booksSlice';
 
 function MyBooks() {
+  const dispatch=useDispatch();
+  const myBooks=useSelector(state=>state.books.myBooks);
+  const user=useSelector(state=>state.users.user);
+  useEffect(()=>{
+    dispatch(fetchMyBooks(user.user_id))
+  },[])
   return (
     <>
       <h1>MyBooks</h1>
