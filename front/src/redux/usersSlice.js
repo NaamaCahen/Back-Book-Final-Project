@@ -3,18 +3,7 @@ import booksSlice from "./booksSlice";
 
 const initialState = {
     token: null,
-    user: {
-        user_id: null,
-        email: '',
-        password: '',
-        autor_first_name: '',
-        author_last_name: '',
-        country: '',
-        city: '',
-        street: '',
-        num_house: '',
-        phone: '',
-    },
+    user: {},
     error: ''
 }
 
@@ -43,16 +32,7 @@ export const usersSlice = createSlice({
         })
         builder.addCase(fetchUser.rejected, (state, action) => {
             state.error = action.error.message
-            state.user.userId = null
-            state.user.email = ''
-            state.user.password = ''
-            state.user.firstName = ''
-            state.user.lastName = ''
-            state.user.country = ''
-            state.user.city = ''
-            state.user.street = ''
-            state.user.numHouse = ''
-            state.user.phone = ''
+            state.user={}
         })
     }
 })

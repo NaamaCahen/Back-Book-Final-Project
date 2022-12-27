@@ -73,7 +73,7 @@ export const userById=async(req,res)=>{
     const {id}=req.params;
     try{
             const user=await db('users').select('*').where({user_id:id})
-            res.json(user)
+            res.json(user[0])
     }catch(e){
         res.status(404).json({msg:'user not found'})
     }

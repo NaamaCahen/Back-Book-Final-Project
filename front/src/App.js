@@ -9,6 +9,7 @@ import Home from './components/Home';
 import Welcome from './components/Welcome';
 import Auth from './authentication/Auth';
 import Search from './components/Search';
+import Profile from './components/Profile';
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
           <Route path='/myBooks' element={<Login/>}/>
           <Route path='/search' element={<Search/>}/>
           <Route path='/logout' element={<Login/>}/>
-          <Route path='/profile' element={<Login/>}/>
+          <Route path='/profile' element={<Profile/>}/>
         </Routes>
         
       </BrowserRouter>
