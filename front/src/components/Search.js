@@ -6,12 +6,12 @@ import { initilizeSearch } from '../redux/booksSlice';
 import Book from './Book';
 
 function Search() { 
-  const books=useSelector(state=>state.booksReducer.booksArr);
-  const title=useSelector(state=>state.booksReducer.byTitle);
-  const firstName=useSelector(state=>state.booksReducer.byAuthorFirst);
-  const lastName=useSelector(state=>state.booksReducer.byAuthorLast);
-  const category=useSelector(state=>state.booksReducer.byCategory);
-  const age=useSelector(state=>state.booksReducer.byAge);
+  const books=useSelector(state=>state.books.booksArr);
+  const title=useSelector(state=>state.books.byTitle);
+  const firstName=useSelector(state=>state.books.byAuthorFirst);
+  const lastName=useSelector(state=>state.books.byAuthorLast);
+  const category=useSelector(state=>state.books.byCategory);
+  const age=useSelector(state=>state.books.byAge);
   const dispatch=useDispatch();
 
   useEffect(()=>{

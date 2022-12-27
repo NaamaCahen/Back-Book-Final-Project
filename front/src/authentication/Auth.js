@@ -1,21 +1,31 @@
 import React from 'react'
 import {useState,useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
+import { useSelector,useDispatch } from 'react-redux';
+import { setToken, tokenNull } from '../redux/usersSlice';
 
 function Auth(props) {
     const [redirect,setRedirect]=useState(false);
     const navigate=useNavigate();
+    const token=useSelector(state=>state.users.token)
+    const dispatch=useDispatch();
+  
     
     useEffect(()=>{
          const verify=async()=>{
         try{
-            const response=await fetch(`http://localhost:4000/token`)
+            const response=await fetch(`http://localhost:4000/token`,{
+              headers:{
+                'x-access-token':token
+              }
+            })
 
-            console.log(response);
-            // localStorage.setItem('token',response.token)
+            const res=await response.json();
+            console.log(res);
+            dispatch(setToken(res.token))
             setRedirect(true);
         }catch(err){
-             localStorage.setItem('token',"null");
+            dispatch(setToken(null))
             navigate('/login')
         }
     }

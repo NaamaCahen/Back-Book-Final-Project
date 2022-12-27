@@ -4,9 +4,9 @@ import { useEffect } from 'react';
 import { searchByAuthorFirst, searchByTitle, searchByAuthorLast, fetchCategories, searchByCategory,searchByAge, fetchAges } from '../redux/booksSlice';
 
 function SearchBar() {
-  const books = useSelector((state) => state.booksReducer.booksArr);
-  const categories = useSelector(state => state.booksReducer.categories)
-  const ages=useSelector(state=>state.booksReducer.ages)
+  const books = useSelector((state) => state.books.booksArr);
+  const categories = useSelector(state => state.books.categories)
+  const ages=useSelector(state=>state.books.ages)
   const dispatch = useDispatch();
 
   useEffect(() => {
