@@ -39,6 +39,7 @@ export const getBooks = async (req, res) => {
             'users.num_house',
             'users.phone'
         )
+        .where('books_status.status_name','=','for sharing')
         .then(rows => res.json(rows))
         .catch(e => {
             console.log(e);
