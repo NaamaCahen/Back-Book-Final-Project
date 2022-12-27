@@ -1,26 +1,19 @@
 import db from "../config/elephantsql.js";
 
 export const getBooks = async (req, res) => {
-    // try {
-    //     const rows = await db('books').select('*');
-    //    res.json(rows);
-    // } catch (e) {
-    //      res.status(404).json({ msg: e.message })
-    // }
-
     db('books')
         .join('book_assigning', 'books.book_id', '=', 'book_assigning.book_id')
         .join('users', 'users.user_id', '=', 'book_assigning.user_id')
         .join('categories', 'books.category', '=', 'categories.category_id')
         .join('ages', 'books.age', '=', 'ages.age_id')
-        .join('assigning_status','assigning_status.status_id','=','book_assigning.status')
-        .join('books_status','books_status.status_id','=','books.book_status')
+        .join('assigning_status', 'assigning_status.status_id', '=', 'book_assigning.status')
+        .join('books_status', 'books_status.status_id', '=', 'books.book_status')
         .select(
             'books.book_id',
             'books.title',
             'books.author_first_name',
             'books.author_last_name',
-            'books_status.status_name',
+            'books_status.status_description',
             'categories.category_name',
             'ages.age_description',
             'book_assigning.book_assigning_id',
@@ -39,7 +32,7 @@ export const getBooks = async (req, res) => {
             'users.num_house',
             'users.phone'
         )
-        .where('books_status.status_name','=','for sharing')
+        .where('books_status.status_description', '=', 'for sharing')
         .then(rows => res.json(rows))
         .catch(e => {
             console.log(e);
@@ -74,4 +67,45 @@ const newBookAssigning = (book_id, user_id, status, date) => {
     db('book_assigning')
         .insert(user_id, book_id, status, addedat)
 
+}
+
+export const getMyBooks = (req, res) => {
+    const {id}=req.params;
+    db('books')
+        .join('book_assigning', 'books.book_id', '=', 'book_assigning.book_id')
+        .join('users', 'users.user_id', '=', 'book_assigning.user_id')
+        .join('categories', 'books.category', '=', 'categories.category_id')
+        .join('ages', 'books.age', '=', 'ages.age_id')
+        .join('assigning_status', 'assigning_status.status_id', '=', 'book_assigning.status')
+        .join('books_status', 'books_status.status_id', '=', 'books.book_status')
+        .select(
+            'books.book_id',
+            'books.title',
+            'books.author_first_name',
+            'books.author_last_name',
+            'books_status.status_description',
+            'categories.category_name',
+            'ages.age_description',
+            'book_assigning.book_assigning_id',
+            'users.user_id' ,
+            'assigning_status.status_name',
+            'book_assigning.requestedat',
+            'book_assigning.receivedat',
+            'book_assigning.givenat',
+            'book_assigning.addedat',
+            'users.email',
+            'users.user_first_name',
+            'users.user_last_name',
+            'users.country',
+            'users.city',
+            'users.street',
+            'users.num_house',
+            'users.phone'
+        )
+        .where({'users.user_id':id})
+        .then(rows => res.json(rows))
+        .catch(e => {
+            console.log(e);
+            res.status(404).json({ msg: e.message });
+        })
 }
