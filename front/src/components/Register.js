@@ -1,8 +1,12 @@
 import React from 'react'
 import {useNavigate} from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setToken } from '../redux/usersSlice';
 
 function Register() {
     const navigate=useNavigate();
+    const dispatch=useDispatch();
+
     const register = (e) => {
         e.preventDefault();
         const user = {
@@ -28,7 +32,7 @@ function Register() {
         .then(data=>{
             console.log(data);
             if(!data.msg){
-                localStorage.setItem('token',data.token)
+                dispatch(setToken(data.token))
                 navigate('/home');
             }
         })

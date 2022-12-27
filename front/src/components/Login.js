@@ -1,8 +1,13 @@
 import React from 'react'
 import {useNavigate} from 'react-router-dom'
+import { useSelector,useDispatch } from 'react-redux';
+import { setToken } from '../redux/usersSlice';
 
 function Login() {
     const navigate=useNavigate();
+    const token=useSelector(state=>state.users.token);
+    const dispatch=useDispatch();
+
     const login=(e)=>{
         e.preventDefault();
             const user = {
@@ -22,7 +27,7 @@ function Login() {
         .then(data=>{
             console.log(data);
             if(data.token){
-                localStorage.setItem('token',data.token)
+                dispatch(setToken(data.token))
                 navigate('/home')
             }
         })
