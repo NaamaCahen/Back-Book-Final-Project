@@ -3,6 +3,7 @@ import { Button, Table, Tabs } from 'flowbite-react';
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchMyBooks } from '../redux/booksSlice';
 import BooksTable from './BooksTable';
+import AddBook from './AddBook';
 
 function MyBooks() {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ function MyBooks() {
           </Tabs.Item>
         </Tabs.Group>
       </div>
-      <Button>add new book</Button>
+      <AddBook/>
     </>
   )
 }
