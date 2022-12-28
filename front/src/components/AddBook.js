@@ -21,6 +21,11 @@ function AddBook() {
 
     }, [])
 
+    const closeForm=()=>{
+        setShow(false);
+        document.querySelector('form').reset()
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
         setShow(false);
@@ -38,6 +43,8 @@ function AddBook() {
             age,
         }
         
+        //reset the form to be empty
+        e.target.reset();
 
         //convert to format: YYYY-MM-DD
         const addedat = new Date().toISOString().split('T')[0];
@@ -97,7 +104,7 @@ function AddBook() {
         <>
             <React.Fragment>
                 <Button gradientDuoTone='purpleToBlue' onClick={() => setShow(true)}>add new book</Button>
-                <Modal show={show} onClose={() => setShow(false)} popup={true} size='sm'>
+                <Modal show={show} onClose={closeForm} popup={true} size='sm'>
                     <form onSubmit={handleSubmit}>
                         <Modal.Header>
                             Add a Book
@@ -145,7 +152,7 @@ function AddBook() {
                         </Modal.Body>
                         <Modal.Footer>
                             <Button type='submit'>add</Button>
-                            <Button color='failure' outline={true} onClick={() => setShow(false)}>cancel</Button>
+                            <Button color='failure' outline={true} onClick={closeForm}>cancel</Button>
                         </Modal.Footer>
                     </form>
                 </Modal>
