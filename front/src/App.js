@@ -10,6 +10,7 @@ import Welcome from './components/Welcome';
 import Auth from './authentication/Auth';
 import Search from './components/Search';
 import Profile from './components/Profile';
+import MyBooks from './components/MyBooks';
 
 function App() {
   return (
@@ -18,10 +19,10 @@ function App() {
         <Navbar />
         <Routes>
           <Route path='/' element={<Welcome/>}/>
-          <Route path='/home' element={<Auth><Home/></Auth>}/>
+          <Route path='/home' element={<Home/>}/>
           <Route path='/login' element={<Login/>}/>
           <Route path='/register' element={<Register/>}/>
-          <Route path='/myBooks' element={<Login/>}/>
+          <Route path='/myBooks' element={<MyBooks/>}/>
           <Route path='/search' element={<Search/>}/>
           <Route path='/logout' element={<Login/>}/>
           <Route path='/profile' element={<Profile/>}/>

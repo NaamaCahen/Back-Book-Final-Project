@@ -9,7 +9,8 @@ const initialState = {
   categories: [],
   byCategory: '',
   ages: [],
-  byAge: ''
+  byAge: '',
+  myBooks:[],
 }
 
 
@@ -34,6 +35,14 @@ export const fetchAges = createAsyncThunk(
   'books/fetchAgesStatus',
   async () => {
     const response = await fetch('/ages')
+    return await response.json()
+  }
+)
+
+export const fetchMyBooks=createAsyncThunk(
+  'books/fetchMyBooksStatus',
+  async(id)=>{
+    const response=await fetch('/books/'+id)
     return await response.json()
   }
 )
@@ -91,6 +100,15 @@ export const booksSlice = createSlice({
     builder.addCase(fetchAges.rejected, (state, action) => {
       state.ages = []
       state.error = action.error.message
+    })
+    builder.addCase(fetchMyBooks.fulfilled,(state,action)=>{
+      state.myBooks=action.payload
+      state.error=''
+      console.log(state.myBooks);
+    })
+    builder.addCase(fetchMyBooks.rejected,(state,action)=>{
+      state.myBooks=[]
+      state.error=action.error.message
     })
   },
 
