@@ -32,7 +32,7 @@ function BooksTable(props) {
                                     </Table.Cell>
 
                                     <Table.Cell>
-                                        {(item.addedat || item.receivedat).substr(0, 10)}
+                                        {(item.addedat || item.receivedat||item.requestedat).substr(0, 10)}
                                     </Table.Cell>
 
                                 </Table.Row>

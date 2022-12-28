@@ -24,7 +24,7 @@ function MyBooks() {
             <BooksTable tab='received' filtered={myBooks.filter(item=>item.status_name==='received')}/>
           </Tabs.Item>
           <Tabs.Item title="requested">
-            <BooksTable tab='requested' filtered={myBooks.filter(item=>item.status_name==='requested')}/>
+            <BooksTable tab='requested' filtered={myBooks.filter(item=>item.status_name==='request')}/>
           </Tabs.Item>
           <Tabs.Item title="given">
             <BooksTable tab='given' filtered={myBooks.filter(item=>item.status_name==='given')}/>
