@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { Button, Label, Modal, Select, TextInput } from 'flowbite-react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchAges, fetchCategories } from '../redux/booksSlice'
+import { fetchAges, fetchCategories, fetchMyBooks } from '../redux/booksSlice'
 
 function AddBook() {
     const [show, setShow] = useState(false)
@@ -19,21 +19,56 @@ function AddBook() {
         }
     }, [])
 
-    const addBook = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         setShow(false);
         
+        //find the category id and age id
+        const category=categories.filter(item=>item.category_name=== e.target.categories.value)[0].category_id
+        const age=ages.filter(item=>item.age_description=== e.target.ages.value)[0].age_id
+        
+        const book={
+            title:e.target.title.value,
+            author_first_name:e.target.firstName.value,
+            author_last_name:e.target.lastName.value,
+            category,
+            book_status:1,
+            age,
+        } 
+        console.log(book);
+         addBook(book);
+        
+        // dispatch(fetchMyBooks());
+        
+    // let day = date.getDay();
+    // day < 10 ? day = '0' + day : day;
+    // let month = date.getMonth();
+    // month < 10 ? month = '0' + month : month;
+    // const year = date.getFullYear();
+    // const addedat = `${year}-${month}-${day}`
 
     }
+
+    const addBook=async(book)=>{
+        const response=await fetch('http://localhost:4000/books',{
+            method:'POST',
+            headers:{
+              'Content-Type': 'application/json'
+          },
+          body:JSON.stringify(book)
+          })
+          return await response.json()
+        }
+    
 
     return (
         <>
             <React.Fragment>
                 <Button gradientDuoTone='purpleToBlue' onClick={() => setShow(true)}>add new book</Button>
                 <Modal show={show} onClose={() => setShow(false)} popup={true} size='sm'>
-                    <form onSubmit={addBook}>
+                    <form onSubmit={handleSubmit}>
                         <Modal.Header>
-                            <h2>Add a Book</h2>
+                            Add a Book
                         </Modal.Header>
                         <Modal.Body>
 
@@ -54,7 +89,7 @@ function AddBook() {
                                     <option disabled selected value></option>
                                     {categories.map(item => {
                                         return (
-                                            <option>
+                                            <option key={item.category_id}>
                                                 {item.category_name}
                                             </option>
                                         )
@@ -67,7 +102,7 @@ function AddBook() {
                                     <option disabled selected value></option>
                                     {ages.map(item => {
                                         return (
-                                            <option>
+                                            <option key={item.age_id}>
                                                 {item.age_description}
                                             </option>
                                         )
@@ -84,7 +119,8 @@ function AddBook() {
                 </Modal>
             </React.Fragment>
         </>
-    )
-}
+    )               
+       
+}                                                             
 
 export default AddBook

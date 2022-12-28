@@ -41,7 +41,7 @@ export const getBooks = async (req, res) => {
 
 }
 
-//add a new book (adding also a row in books_assignment)
+//add a new book
 export const newBook = (req, res) => {
     const { title, author_first_name, author_last_name, category, book_status, age, user_id } = req.body;
     db('books')
