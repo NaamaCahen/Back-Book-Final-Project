@@ -5,12 +5,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchAges, fetchCategories, fetchMyBooks } from '../redux/booksSlice'
 
 function AddBook() {
-    const [show, setShow] = useState(false)
+    const [show, setShow] = useState(false);
+    const [added,setAdded]=useState(0);
     const dispatch = useDispatch();
     const categories = useSelector(state => state.books.categories);
     const ages = useSelector(state => state.books.ages);
     const user = useSelector(state => state.users.user);
-
+    
     useEffect(() => {
         if (categories.length === 0) {
             dispatch(fetchCategories());
@@ -20,6 +21,10 @@ function AddBook() {
         }
 
     }, [])
+
+    useEffect(()=>{
+        dispatch(fetchMyBooks(user.user_id));
+    },[added])
 
     const closeForm=()=>{
         setShow(false);
@@ -51,6 +56,8 @@ function AddBook() {
 
         addBook(book,addedat);
 
+        
+
     }
 
     //adding a row to the books table
@@ -81,6 +88,7 @@ function AddBook() {
             .then(res=>res.json())
             .then(data=>{
                 console.log(data);
+                setAdded(data.book_id);
             })
             .catch(e=>console.log(e))
         })
