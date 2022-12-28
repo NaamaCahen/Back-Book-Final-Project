@@ -15,7 +15,7 @@ function MyBooks() {
   return (
     <>
       <h1>MyBooks</h1>
-      <div className='h-96'>
+      <div >
         <Tabs.Group aria-label="Tabs with underline" style="underline">
           <Tabs.Item title="sharing">
             <BooksTable tab='shared' filtered={myBooks.filter(item=>{ return item.status_name === 'added' || (item.status_name === 'received' && item.status_description === 'for sharing') })}/>

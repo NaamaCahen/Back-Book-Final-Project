@@ -9,6 +9,7 @@ function AddBook() {
     const dispatch = useDispatch();
     const categories = useSelector(state => state.books.categories);
     const ages = useSelector(state => state.books.ages);
+    const user = useSelector(state => state.users.user);
 
     useEffect(() => {
         if (categories.length === 0) {
@@ -17,49 +18,80 @@ function AddBook() {
         if (ages.length === 0) {
             dispatch(fetchAges());
         }
+
     }, [])
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setShow(false);
-        
+
         //find the category id and age id
-        const category=categories.filter(item=>item.category_name=== e.target.categories.value)[0].category_id
-        const age=ages.filter(item=>item.age_description=== e.target.ages.value)[0].age_id
-        
-        const book={
-            title:e.target.title.value,
-            author_first_name:e.target.firstName.value,
-            author_last_name:e.target.lastName.value,
+        const category = categories.filter(item => item.category_name === e.target.categories.value)[0].category_id
+        const age = ages.filter(item => item.age_description === e.target.ages.value)[0].age_id
+
+        const book = {
+            title: e.target.title.value,
+            author_first_name: e.target.firstName.value,
+            author_last_name: e.target.lastName.value,
             category,
-            book_status:1,
+            book_status: 1,
             age,
-        } 
-        console.log(book);
-         addBook(book);
+        }
         
-        // dispatch(fetchMyBooks());
-        
-    // let day = date.getDay();
-    // day < 10 ? day = '0' + day : day;
-    // let month = date.getMonth();
-    // month < 10 ? month = '0' + month : month;
-    // const year = date.getFullYear();
-    // const addedat = `${year}-${month}-${day}`
+
+        //convert to format: YYYY-MM-DD
+        const addedat = new Date().toISOString().split('T')[0];
+
+        addBook(book,addedat);
 
     }
 
-    const addBook=async(book)=>{
-        const response=await fetch('http://localhost:4000/books',{
-            method:'POST',
-            headers:{
-              'Content-Type': 'application/json'
-          },
-          body:JSON.stringify(book)
-          })
-          return await response.json()
-        }
-    
+    //adding a row to the books table
+    const addBook =  (book,addedat) => {
+        fetch('http://localhost:4000/books', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(book)
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            console.log(data)
+            const assigning = {
+                user_id: user.user_id,
+                book_id: data.book_id,
+                status: 4,
+                addedat,
+            }
+            fetch('/bookAssign', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(assigning)
+            })
+            .then(res=>res.json())
+            .then(data=>{
+                console.log(data);
+            })
+            .catch(e=>console.log(e))
+        })
+        .catch(e=>console.log(e))
+    }
+
+    //adding a row to the book-assigning table
+    const assignBook = async (assigning) => {
+        const response = await fetch('/bookAssign', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(assigning)
+        })
+        return await response.json();
+    }
+
 
     return (
         <>
@@ -119,8 +151,8 @@ function AddBook() {
                 </Modal>
             </React.Fragment>
         </>
-    )               
-       
-}                                                             
+    )
+
+}
 
 export default AddBook
