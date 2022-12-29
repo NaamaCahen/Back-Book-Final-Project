@@ -108,3 +108,12 @@ export const getMyBooks = (req, res) => {
             res.status(404).json({ msg: e.message });
         })
 }
+
+export const share=(req,res)=>{
+    const {book_id}=req.body;
+    db('books')
+    .update({book_status:1})
+    .where({book_id})
+    .then(rows=>res.json(rows))
+    .catch(e=>e.status(404).json({msg:e.message}))
+}
