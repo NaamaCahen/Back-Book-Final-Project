@@ -22,7 +22,7 @@ function MyBooks() {
             <BooksTable tab='shared' filtered={myBooks.filter(item=>{ return item.status_name === 'added' || (item.status_name === 'received' && item.status_description === 'for sharing') })}/>
           </Tabs.Item>
           <Tabs.Item title="reading">
-            <BooksTable tab='received' filtered={myBooks.filter(item=>item.status_name==='received')}/>
+            <BooksTable tab='received' filtered={myBooks.filter(item=>item.status_name==='received'&& item.status_description === 'reading')}/>
           </Tabs.Item>
           <Tabs.Item title="requested">
             <BooksTable tab='requested' filtered={myBooks.filter(item=>item.status_name==='request')}/>
