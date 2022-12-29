@@ -1,9 +1,9 @@
 import db from "../config/elephantsql.js"
 
 export const newRequest = (req, res) => {
-    const { user_id, book_id, status, requestedat } = req.body;
+    const { user_id, book_id, status, requestedat,from_user } = req.body;
     db('book_assigning')
-        .insert({user_id, book_id, status, requestedat})
+        .insert({ user_id, book_id, status, requestedat,from_user })
         .returning('*')
         .then(rows => res.json(rows))
         .catch(e => {
@@ -13,18 +13,18 @@ export const newRequest = (req, res) => {
 }
 
 export const acceptRequest = (req, res) => {
-    const { book_assigning_id,receivedat ,user_id, book_id } = req.body;
+    const { book_assigning_id, receivedat, user_id, book_id } = req.body;
     db('book_assigning')
         .where({ book_assigning_id: book_assigning_id })
         .update({
             status: (db('assigning_status').where({ status_name: 'received' }).returning('status_id')),
-            receivedat:receivedat
+            receivedat: receivedat
         })
 
-    giveBook(user_id, book_id,receivedat);
+    giveBook(user_id, book_id, receivedat);
 }
 
-const giveBook = (user_id, book_id,givenat) => {
+const giveBook = (user_id, book_id, givenat) => {
     // const date=new Date();
     // let day=date.getDay();
     // if(day<10){day='0'+day}
@@ -36,18 +36,30 @@ const giveBook = (user_id, book_id,givenat) => {
         .where({ user_id, book_id })
         .update({
             status: (db('assigning_status').where({ status_name: 'given' }).returning('status_id')),
-            givenat:givenat
+            givenat: givenat
         })
 }
 
-export const cancelRequest=(req,res)=>{
-    const {book_assigning_id}=req.body;
+export const cancelRequest = (req, res) => {
+    const { book_assigning_id } = req.body;
     db('book_assigning')
-    .where({
-        book_assigning_id
-    })
-    .del()
-    .returning('*')
-    .then(rows=>res.json(rows))
-    .catch(e=>res.status(404).json({msg:e.message}))
+        .where({
+            book_assigning_id
+        })
+        .del()
+        .returning('*')
+        .then(rows => res.json(rows))
+        .catch(e => res.status(404).json({ msg: e.message }))
+}
+
+export const getMyRequests = (req, res) => {
+    const { id } = req.params;
+    db('book_assigning')
+        .select('*')
+        .where({
+            from_user: id,
+            status: 1
+        })
+        .then(rows=>res.json(rows))
+        .catch(e => res.status(404).json({ msg: e.message }))
 }

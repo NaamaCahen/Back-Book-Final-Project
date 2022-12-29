@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchMyBooks } from '../redux/booksSlice';
 import BooksTable from './BooksTable';
 import AddBook from './AddBook';
+import MyRequests from './MyRequests';
 
 function MyBooks() {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ function MyBooks() {
         </Tabs.Group>
       </div>
       <AddBook/>
+      <MyRequests/>
     </>
   )
 }
