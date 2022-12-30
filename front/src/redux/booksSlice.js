@@ -42,7 +42,7 @@ export const fetchAges = createAsyncThunk(
 export const fetchMyBooks=createAsyncThunk(
   'books/fetchMyBooksStatus',
   async(id)=>{
-    const response=await fetch('/books/'+id)
+    const response=await fetch('/myBooks/'+id)
     return await response.json()
   }
 )

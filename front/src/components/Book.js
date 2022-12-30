@@ -69,7 +69,7 @@ function Book(props) {
 
                 {/* //when request succeeded */}
                 <React.Fragment>
-                <Modal show={isSent} onClose={()=>setIsSent(false)}>
+                <Modal show={isSent} onClose={()=>setIsSent(false)} className='z-20'>
                     <Modal.Header/>
                     <Modal.Body>
                         {

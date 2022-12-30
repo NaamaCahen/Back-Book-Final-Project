@@ -7,5 +7,5 @@ export const booksRouter=express.Router();
 booksRouter.get('/books/:id', getBooks);
 booksRouter.post('/books',newBook);
 booksRouter.post('/bookAssign',newBookAssigning);
-booksRouter.get('/books/:id',getMyBooks);
+booksRouter.get('/myBooks/:id',getMyBooks);
 booksRouter.post('/share',share);
