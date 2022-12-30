@@ -20,6 +20,7 @@ export const assigningSlice=createSlice({
         builder.addCase(fetchMyRequests.fulfilled,(state,action)=>{
             state.myRequests=action.payload
             state.error='';
+            console.log(state.myRequests);
         })
         builder.addCase(fetchMyRequests.rejected,(state,action)=>{
             state.myRequests=[];

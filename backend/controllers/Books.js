@@ -1,6 +1,7 @@
 import db from "../config/elephantsql.js";
 
 export const getBooks = async (req, res) => {
+    const {id}=req.params;
     db('books')
         .join('book_assigning', 'books.book_id', '=', 'book_assigning.book_id')
         .join('users', 'users.user_id', '=', 'book_assigning.user_id')
@@ -34,6 +35,7 @@ export const getBooks = async (req, res) => {
         )
         .where({'books_status.status_description': 'for sharing','assigning_status.status_name':'received'})
         .orWhere({'books_status.status_description': 'for sharing','assigning_status.status_name':'added'})
+        .whereNot({'users.user_id':id})
         .then(rows => res.json(rows))
         .catch(e => {
             console.log(e);
