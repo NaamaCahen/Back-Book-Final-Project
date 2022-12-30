@@ -5,7 +5,7 @@ import jwt_decode from 'jwt-decode';
 import db from "../config/elephantsql.js";
 
 export const register=async(req,res)=>{
-    const {email,password,user_first_name,user_last_name,country,city,street,num_house,phone} =req.body;
+    const {email,password,user_first_name,user_last_name,country,city,street,num_house,phone,lat,long} =req.body;
 
     const salt=await bcrypt.genSalt();
     const hash=await bcrypt.hash(password,salt);
@@ -19,7 +19,9 @@ export const register=async(req,res)=>{
         city,
         street,
         num_house,
-        phone
+        phone,
+        lat,
+        long,
     }).returning('*')
     .then(rows=>{
         const user_id=rows[0].user_id;
