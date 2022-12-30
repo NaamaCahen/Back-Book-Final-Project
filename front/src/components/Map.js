@@ -79,31 +79,8 @@ export function MyMapComponent() {
 
         }
 
-        {/* <Marker position={[32.0803902, 34.8275162]}>
-        <Popup>
-          my house. <br /> with nominatim
-        </Popup>
-      </Marker>
-
-      <Marker position={[32.0889388, 34.8264839]}>
-        <Popup>
-          שפינגרן <br /> Easily customizable.
-        </Popup>
-      </Marker> */}
-        {console.log(position)}
-        <MyComponent position={position} />
+       
       </MapContainer>
-
-
-      {/* <React.Fragment >
-        <Modal show={openModal} onClose={() => setOpenModal(false)}  >
-          <Modal.Header />
-          <Modal.Body>
-            jhglkjglj
-            // {/* <Book book={item}/> */}
-          {/* </Modal.Body>
-        </Modal>
-      </React.Fragment> */} 
     </>
   )
 }
