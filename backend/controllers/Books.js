@@ -31,11 +31,13 @@ export const getBooks = async (req, res) => {
             'users.city',
             'users.street',
             'users.num_house',
-            'users.phone'
+            'users.phone',
+            'users.lat',
+            'users.long',
         )
-        .where({'books_status.status_description': 'for sharing','assigning_status.status_name':'received'})
-        .orWhere({'books_status.status_description': 'for sharing','assigning_status.status_name':'added'})
         .whereNot({'users.user_id':id})
+        .whereIn('assigning_status.status_id',[2,4])
+       .andWhere({'books_status.status_description': 'for sharing'})         
         .then(rows => res.json(rows))
         .catch(e => {
             console.log(e);

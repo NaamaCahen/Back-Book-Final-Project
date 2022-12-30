@@ -21,7 +21,7 @@ function Home() {
         <>
             <div>Home</div>
             <div className='w-full'>
-                <MyMapComponent />
+                {books.length>0?<MyMapComponent />:null}
             </div>
             
         </>
