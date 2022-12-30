@@ -4,9 +4,10 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 function Book(props) {
-    const [isShowing,setIsShowing]=useState(false);
-    const [isSent,setIsSent]=useState(false);
+    const [isShowing,setIsShowing]=useState(false);//show 1st the modal of details
+    const [isSent,setIsSent]=useState(false);//show 2nd the modal of ok
     const user=useSelector(state=>state.users.user)
+    const [failed,setFailed]=useState(false);//if there are multiple requests it will popup anothe text in the modal
 
     const closeModal=()=>{
        setIsShowing(false);
@@ -31,11 +32,17 @@ function Book(props) {
         })
         .then(res=>res.json())
         .then(data=>{
-            setIsSent(true);
+            if(data.msg){//check if there is already an existing request for this book
+                setFailed(true);
+                console.log(true);
+            }else{
+                setFailed(false)
+            }
+            setIsSent(true);//open another modal if succeeded to send the request or not
             console.log(data);
         })
         .catch(e=>console.log(e))
-        //open another modal if succeeded to send the request
+        
     }
     return (
         <>
@@ -64,12 +71,18 @@ function Book(props) {
                 <Modal show={isSent} onClose={()=>setIsSent(false)}>
                     <Modal.Header/>
                     <Modal.Body>
-                        Great! 
+                        {
+                            failed?'OOPS...  cannot allow multiple requests for the same book ':`Great! 
                         your request was duccessfully sent to the current owner of the book.
                         here are his contact details:
-                        phone :{props.book.phone}
-                        email:{props.book.email}
-                        address: {props.book.num_house} {props.book.street} st. {props.book.city},{props.book.country}
+                        phone :${props.book.phone}
+                        email:${props.book.email}
+                        address: ${props.book.num_house} ${props.book.street} st. ${props.book.city},${props.book.country}`
+
+                            
+                             
+                        }
+                       
                     </Modal.Body>
                     <Modal.Footer>
                         <Button onClick={()=>setIsSent(false)}>ok!</Button>
