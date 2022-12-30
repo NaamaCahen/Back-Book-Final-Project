@@ -14,7 +14,7 @@ function Home() {
     useEffect(()=>{
         const decode=jwt_decode(token);
         dispatch(fetchUser(decode.user_id))
-        dispatch(fetchBooks())
+        dispatch(fetchBooks(decode.user_id))
     },[])
     
     return (

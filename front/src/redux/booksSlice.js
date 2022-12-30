@@ -17,8 +17,8 @@ const initialState = {
 export const fetchBooks = createAsyncThunk(
   'books/fetchBooksStatus',
   // Declare the type your function argument here:
-  async () => {
-    const response = await fetch(`/books`)
+  async (id) => {
+    const response = await fetch(`/books/${id}`)
     return await response.json()
   }
 )
@@ -80,6 +80,7 @@ export const booksSlice = createSlice({
     builder.addCase(fetchBooks.fulfilled, (state, action) => {
       state.booksArr = action.payload
       state.error = ''
+      console.log(state.booksArr);
     })
     builder.addCase(fetchBooks.rejected, (state, action) => {
       state.booksArr = []
