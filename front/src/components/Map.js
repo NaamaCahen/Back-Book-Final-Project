@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import Book from './Book';
 import { Modal } from 'flowbite-react';
 import L from 'leaflet';
+import MarkerClusterGroup from 'react-leaflet-cluster';
 
 function MyComponent(props) {
   const map = useMap()
@@ -25,12 +26,12 @@ export function MyMapComponent() {
 
   // by default the location will be the users address
   const [position, setPosition] = useState([user.lat, user.long])
-  
-  const bookIcon=new L.icon({
-    iconUrl:`https://iconpacks.net/icons/2/free-opened-book-icon-3163-thumb.png`,
-    iconSize:[35,45]
+
+  const bookIcon = new L.icon({
+    iconUrl: `https://iconpacks.net/icons/2/free-opened-book-icon-3163-thumb.png`,
+    iconSize: [35, 45]
   })
-  
+
   useEffect(() => {
 
     const success = (pos) => {
@@ -62,24 +63,24 @@ export function MyMapComponent() {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        <MarkerClusterGroup>
+          {
+            books.length > 0 ? books.map(item => {
+              return (
+                <>
+                  <Marker position={[item.lat, item.long]} icon={bookIcon}>
+                    <Popup>
+                      <Book book={item} />
+                    </Popup>
+                    <Tooltip>{item.title}</Tooltip>
+                  </Marker>
+                </>
+              )
+            }) : null
 
-        {
-          books.length > 0 ? books.map(item => {
-            return (
-              <>
-                <Marker position={[item.lat, item.long]} icon={bookIcon}>
-                  <Popup>
-                    <Book book={item} />
-                  </Popup>
-                  <Tooltip>{item.title}</Tooltip>
-                </Marker>
-              </>
-            )
-          }) : null
+          }
 
-        }
-
-       
+        </MarkerClusterGroup>
       </MapContainer>
     </>
   )
