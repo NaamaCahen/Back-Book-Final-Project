@@ -32,7 +32,8 @@ function Book(props) {
         })
         .then(res=>res.json())
         .then(data=>{
-            if(data.msg){//check if there is already an existing request for this book
+            if(data.msg){  
+                //check if there is already an existing request for this book
                 setFailed(true);
                 console.log(true);
             }else{

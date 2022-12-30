@@ -32,7 +32,8 @@ export const getBooks = async (req, res) => {
             'users.num_house',
             'users.phone'
         )
-        .where('books_status.status_description', '=', 'for sharing')
+        .where({'books_status.status_description': 'for sharing','assigning_status.status_name':'received'})
+        .orWhere({'books_status.status_description': 'for sharing','assigning_status.status_name':'added'})
         .then(rows => res.json(rows))
         .catch(e => {
             console.log(e);
