@@ -80,6 +80,7 @@ function BooksTable(props) {
                     </Table.HeadCell>
                     <Table.HeadCell></Table.HeadCell>
                     <Table.HeadCell></Table.HeadCell>
+                    <Table.HeadCell></Table.HeadCell>
                 </Table.Head>
                 <Table.Body className="divide-y">
                     {
@@ -113,6 +114,16 @@ function BooksTable(props) {
                                                 <Button color='failure' size='sm' onClick={() => handleClick(item.book_assigning_id,'cancel')}>cancel request</Button>
                                             </>:null
                                         }
+                                        </Table.Cell>
+                                        <Table.Cell>
+                                            {
+                                                props.tab ==='requested'?
+                                                <>
+                                                <p>phone: {item.phone}</p>
+                                                <p>email: {item.email}</p>
+                                                </>
+                                                :null
+                                            }
                                         </Table.Cell>
                                     </Table.Row>
                                 )
