@@ -106,3 +106,13 @@ export const token=(req,res)=>{
 
     res.status(200).json({token:accessToken})
 }
+
+export const updateProfile=(req,res)=>{
+    const {user_id,email,user_first_name,user_last_name,country,city,street,num_house,phone,lat,long} =req.body;
+    db('users')
+    .where({user_id})
+    .update({email,user_first_name,user_last_name,country,city,street,num_house,phone,lat,long})
+    .returning('*')
+    .then(row=>res.json({msg:'profile details updated successfully!'}))
+    .catch(e=>res.status(404).json({msg:e.message}))
+}
