@@ -85,7 +85,7 @@ export const logout=(req,res)=>{
     const accessToken=req.cookies.accessToken;
     if(!accessToken) return res.status(204).json({msg:'cleared'})
     res.clearCookie('accessToken');
-    res.status(200).json()
+    res.status(200).json({msg:'cleared'})
 }
 
 export const token=(req,res)=>{
@@ -105,4 +105,14 @@ export const token=(req,res)=>{
     });
 
     res.status(200).json({token:accessToken})
+}
+
+export const updateProfile=(req,res)=>{
+    const {user_id,email,user_first_name,user_last_name,country,city,street,num_house,phone,lat,long} =req.body;
+    db('users')
+    .where({user_id})
+    .update({email,user_first_name,user_last_name,country,city,street,num_house,phone,lat,long})
+    .returning('*')
+    .then(row=>res.json({msg:'profile details updated successfully!'}))
+    .catch(e=>res.status(404).json({msg:e.message}))
 }
