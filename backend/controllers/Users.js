@@ -85,7 +85,7 @@ export const logout=(req,res)=>{
     const accessToken=req.cookies.accessToken;
     if(!accessToken) return res.status(204).json({msg:'cleared'})
     res.clearCookie('accessToken');
-    res.status(200).json()
+    res.status(200).json({msg:'cleared'})
 }
 
 export const token=(req,res)=>{

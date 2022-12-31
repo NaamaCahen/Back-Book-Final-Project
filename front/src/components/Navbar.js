@@ -3,6 +3,7 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom';
 import { useEffect ,useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const navigation = [
     { id: 0, name: 'Home', href: '/home', current: true },
@@ -17,12 +18,33 @@ function classNames(...classes) {
 
 export default function Navbar() {
    const [active,setActive]=useState(0);
+   const navigate=useNavigate();
+   const [token,setToken]=useState(localStorage.getItem('token'))
+
     const setCurrent = (id) => {
         navigation.forEach(item => {
             item.current = false;
         })
         navigation[id].current = true;
         setActive(id);
+    }
+
+    const logout=async()=>{
+        try{
+            const response=await fetch('/logout',{
+                method:'DELETE',
+                headers:{
+                    'x-access-token':token
+                  }
+            })
+            if(response.status===200||response.status===204){
+                console.log(response);
+                navigate('/login')
+            }
+        }catch(e){
+            console.log(e);
+            navigate('/login')
+        }
     }
 
 
@@ -103,7 +125,7 @@ export default function Navbar() {
                                         leaveFrom="transform opacity-100 scale-100"
                                         leaveTo="transform opacity-0 scale-95"
                                     >
-                                        <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                        <Menu.Items className="absolute right-0 z-50 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                             <Menu.Item>
                                                 {({ active }) => (
                                                     <Link
@@ -119,7 +141,7 @@ export default function Navbar() {
                                             <Menu.Item>
                                                 {({ active }) => (
                                                     <Link
-                                                        to="/logout"
+                                                        onClick={logout}
                                                         className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                                                     >
                                                         Sign out
