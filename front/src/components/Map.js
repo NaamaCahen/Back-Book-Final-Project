@@ -53,7 +53,7 @@ export function MyMapComponent() {
       <MapContainer
         style={{ width: "100%", height: "100vh" }}
         zoom={13}
-        center={[31.79592425, 35.21198075969497]}
+        center={position}
         scrollWheelZoom={true}
         fadeAnimation={true}
         markerZoomAnimation={true}
