@@ -27,6 +27,7 @@ function Login() {
         .then(data=>{
             console.log(data);
             if(data.token){
+                localStorage.setItem('token',data.token)
                 dispatch(setToken(data.token))
                 navigate('/home')
             }

@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import booksSlice from "./booksSlice";
 
 const initialState = {
-    token: null,
+    token: localStorage.getItem('token'),
     user: {},
     error: ''
 }
@@ -21,6 +21,7 @@ export const usersSlice = createSlice({
     reducers: {
         setToken: (state, action) => {
             state.token = action.payload
+            localStorage.setItem('token',state.token)
         },
         
     },
