@@ -6,5 +6,5 @@ export const reqRouter=express.Router();
 
 reqRouter.post('/request', newRequest);
 reqRouter.post('/acceptReq', acceptRequest)
-reqRouter.delete('/request',VerifyToken,cancelRequest)
+reqRouter.delete('/request',cancelRequest)
 reqRouter.get('/request/:id',getMyRequests)

@@ -12,32 +12,58 @@ function BooksTable(props) {
     const [shared, setShared] = useState(0);
     const [openModal, setOpenModal] = useState(false);
     const [bookId, setBookId] = useState();
+    const [assigningId, setAssigningId] = useState();
+    const [status,setStatus]=useState();//cancel a request or share
 
     useEffect(() => {
         dispatch(fetchMyBooks(user.user_id));
     }, [shared])
 
-    const share = () => {
+    const handleOk = () => {
         setOpenModal(false);
-        fetch('/share', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ book_id: bookId })
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                setShared(data);
+        if(status==='share'){
+            fetch('/share', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ book_id: bookId })
             })
-            .catch(e => console.log(e))
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    setShared(data);
+                })
+                .catch(e => console.log(e))
+        }else if(status==='cancel'){
+            fetch('/request', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ book_assigning_id: assigningId })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    setShared(data);
+                })
+                .catch(e => console.log(e))
+        }
+        
     }
 
-    const handleClick = (id) => {
-        setOpenModal(true)
-        setBookId(id)
+    const handleClick = (id,currentStatus) => {
+        setOpenModal(true);
+        setStatus(currentStatus)
+        if(currentStatus==='share'){
+             setBookId(id)
+        }else if(currentStatus==='cancel'){
+            setAssigningId(id)
+        }
+       
     }
+
 
     return (
         <>
@@ -52,6 +78,9 @@ function BooksTable(props) {
                     <Table.HeadCell>
                         {props.tab} at
                     </Table.HeadCell>
+                    <Table.HeadCell></Table.HeadCell>
+                    <Table.HeadCell></Table.HeadCell>
+                    <Table.HeadCell></Table.HeadCell>
                 </Table.Head>
                 <Table.Body className="divide-y">
                     {
@@ -69,14 +98,33 @@ function BooksTable(props) {
                                         <Table.Cell>
                                             {(item.addedat || item.receivedat || item.requestedat).substr(0, 10)}
                                         </Table.Cell>
-
+                                        <Table.Cell>
                                         {props.tab === 'received' ?
-                                            <Table.Cell>
-                                                finished reading?
-                                                <Button size='sm' onClick={() => handleClick(item.book_id)}>share!</Button>
-                                            </Table.Cell> : null
+                                            <>
+                                                <p>finished reading?</p>
+                                                <Button size='sm' onClick={() => handleClick(item.book_id,'share')}>share!</Button>
+                                           </>: null
                                         }
-
+                                        
+                                        </Table.Cell> 
+                                        <Table.Cell>
+                                        {
+                                            props.tab ==='requested'?
+                                            <>
+                                                <Button color='failure' size='sm' onClick={() => handleClick(item.book_assigning_id,'cancel')}>cancel request</Button>
+                                            </>:null
+                                        }
+                                        </Table.Cell>
+                                        <Table.Cell>
+                                            {
+                                                props.tab ==='requested'?
+                                                <>
+                                                <p>phone: {item.phone}</p>
+                                                <p>email: {item.email}</p>
+                                                </>
+                                                :null
+                                            }
+                                        </Table.Cell>
                                     </Table.Row>
                                 )
                             })}
@@ -89,10 +137,10 @@ function BooksTable(props) {
                         <div className="text-center">
                             <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
                             <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                                Are you sure you want to share this book?
+                                Are you sure you want to {status==='share'?'share this book':'cancel the request'}?
                             </h3>
                             <div className="flex justify-center gap-4">
-                                <Button gradientDuoTone='purpleToBlue' onClick={() => share()}>
+                                <Button gradientDuoTone='purpleToBlue' onClick={() => handleOk()}>
                                     Yes, I'm sure
                                 </Button>
                                 <Button color="gray" onClick={() => setOpenModal(false)}>
