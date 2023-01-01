@@ -1,32 +1,28 @@
-import { MapContainer, TileLayer, useMap, Marker, Popup, Tooltip } from 'react-leaflet'
+import { MapContainer, TileLayer, useMap, Marker, Popup, Tooltip ,useMapEvents} from 'react-leaflet'
 import { useEffect, useState } from 'react'
 import React from 'react'
 import { useSelector } from 'react-redux';
-import { HiOutlineBookOpen } from 'react-icons/hi'
-import { Link } from 'react-router-dom';
 import Book from './Book';
-import { Modal } from 'flowbite-react';
 import L from 'leaflet';
 import MarkerClusterGroup from 'react-leaflet-cluster';
 
 function MyComponent(props) {
-  const map = useMap()
+  const map = useMap(L.Events)
 
   useEffect(() => {
-
     map.flyTo(props.position)
   }, [props.position])
+  
 }
 
 
 export function MyMapComponent() {
   const user = useSelector(state => state.users.user);
   const books = useSelector(state => state.books.booksArr);
-  const [openModal, setOpenModal] = useState(false);
 
   // by default the location will be the users address
   const [position, setPosition] = useState([user.lat, user.long])
-
+  console.log(position);
   const bookIcon = new L.icon({
     iconUrl: `https://iconpacks.net/icons/2/free-opened-book-icon-3163-thumb.png`,
     iconSize: [35, 45]
@@ -42,9 +38,7 @@ export function MyMapComponent() {
     const error = (err) => {
       console.warn(`ERROR(${err.code}): ${err.message}`);
     }
-
     navigator.geolocation.getCurrentPosition(success, error);
-    <MyComponent position={position} />
   }, [])
 
   return (
@@ -81,6 +75,7 @@ export function MyMapComponent() {
           }
 
         </MarkerClusterGroup>
+        <MyComponent position={position}/>
       </MapContainer>
     </>
   )
