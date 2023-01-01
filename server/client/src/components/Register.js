@@ -37,7 +37,7 @@ function Register() {
                     }
                     console.log(user);
                     
-                    fetch(`http://localhost:4000/register`, {
+                    fetch(`/register`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'

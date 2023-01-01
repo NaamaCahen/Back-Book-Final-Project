@@ -7,6 +7,7 @@ import { router } from './routes/Categories.js';
 import { booksRouter } from './routes/Books.js';
 import { users_router } from './routes/Users.js';
 import { reqRouter } from './routes/Requests.js';
+import path from 'path'
 
 const app=express();
 dotenv.config();
@@ -24,3 +25,10 @@ app.listen(process.env.PORT || 8080 ,()=>{
     console.log(`server running on ${process.env.PORT||8080}`);
 })
 
+const __dirname=path.resolve();
+
+app.use(express.static(path.join(__dirname,'./client/build')))
+
+app.get('*',(req,res)=>{
+    res.sendFile(path.resolve(__dirname,'./client/build','index.html'))
+})

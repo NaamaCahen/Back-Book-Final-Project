@@ -14,7 +14,7 @@ function Auth(props) {
     useEffect(()=>{
          const verify=async()=>{
         try{
-            const response=await fetch(`http://localhost:4000/token`,{
+            const response=await fetch(`/token`,{
               headers:{
                 'x-access-token':token
               }

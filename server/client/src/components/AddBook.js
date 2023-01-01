@@ -62,7 +62,7 @@ function AddBook() {
 
     //adding a row to the books table
     const addBook =  (book,addedat) => {
-        fetch('http://localhost:4000/books', {
+        fetch('/books', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

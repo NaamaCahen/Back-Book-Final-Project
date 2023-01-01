@@ -33,7 +33,7 @@ const Profile = () => {
                         long: +data[0].lon,
                     }
 
-                    fetch('http://localhost:4000/updateProfile', {
+                    fetch('/updateProfile', {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'Application/json'
