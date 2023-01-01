@@ -2,8 +2,10 @@ import React from 'react';
 import SearchBar from './SearchBar';
 import { useSelector,useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { initilizeSearch } from '../redux/booksSlice';
+import { fetchBooks, initilizeSearch } from '../redux/booksSlice';
 import Book from './Book';
+import jwt_decode from 'jwt-decode';
+
 
 function Search() { 
   const books=useSelector(state=>state.books.booksArr);
@@ -12,10 +14,15 @@ function Search() {
   const lastName=useSelector(state=>state.books.byAuthorLast);
   const category=useSelector(state=>state.books.byCategory);
   const age=useSelector(state=>state.books.byAge);
+  const token=useSelector(state=>state.users.token);//for case he refreshes the page, refetch the books
   const dispatch=useDispatch();
 
   useEffect(()=>{
     dispatch(initilizeSearch())
+    if(books.length===0){
+      const decode=jwt_decode(token)
+      dispatch(fetchBooks(decode.user_id));
+    }
   },[])
 
   return (
