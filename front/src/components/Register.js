@@ -47,6 +47,7 @@ function Register() {
                         .then(data => {
                             console.log(data);
                             if (!data.msg) {
+                                localStorage.setItem('token',data.token)
                                 dispatch(setToken(data.token))
                                 navigate('/home');
                             }
