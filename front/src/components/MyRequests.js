@@ -51,7 +51,8 @@ function MyRequests() {
         myRequests.map(item => {
           return (
             <>
-              <Alert color="info">
+            <div className='sm:w-screen md:w-2/3 md:m-auto  '>
+               <Alert color="info">
                 <span>
                   <span className="font-medium">
                     Request for book:{myBooks.find(book => book.book_id === item.book_id).title}
@@ -62,6 +63,8 @@ function MyRequests() {
                   </div>
                 </span>
               </Alert>
+            </div>
+             
 
               {/* //details modal */}
               <Modal show={details} onClose={() => setDetails(false)}>

@@ -111,7 +111,7 @@ function AddBook() {
     return (
         <>
             <React.Fragment>
-                <Button className='m-auto' gradientDuoTone='purpleToBlue' onClick={() => setShow(true)}>add new book</Button>
+                <Button className='mt-10 m-auto shadow-lg shadow-indigo-500/50' gradientDuoTone='purpleToBlue' onClick={() => setShow(true)}>add new book</Button>
                 <Modal show={show} onClose={closeForm} popup={true} size='sm'>
                     <form onSubmit={handleSubmit}>
                         <Modal.Header>
