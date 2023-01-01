@@ -24,7 +24,6 @@ function App() {
           <Route path='/register' element={<Register/>}/>
           <Route path='/myBooks' element={<MyBooks/>}/>
           <Route path='/search' element={<Search/>}/>
-          <Route path='/logout' element={<Login/>}/>
           <Route path='/profile' element={<Profile/>}/>
         </Routes>
         
