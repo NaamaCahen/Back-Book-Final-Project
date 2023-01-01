@@ -39,7 +39,7 @@ function Login() {
     }
     return (
         <>
-        <div className='sm:w-full md:w-1/3 m-auto' >
+        <div className='sm:w-full md:w-1/3 mt-20 m-auto' >
             <Card>
                 <h1 className="text-3xl font-bold text-indigo-500">
                     Login
