@@ -11,6 +11,8 @@ import Auth from './authentication/Auth';
 import Search from './components/Search';
 import Profile from './components/Profile';
 import MyBooks from './components/MyBooks';
+import logo1 from './logo/logo.png'
+
 
 function App() {
   return (
@@ -28,6 +30,9 @@ function App() {
         </Routes>
         
       </BrowserRouter>
+      {/* <div>
+        <img src={logo1}/>
+      </div> */}
     </>
   );
 }

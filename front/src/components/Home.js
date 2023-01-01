@@ -38,7 +38,7 @@ function Home() {
     
     return (
         <>
-            <div>Home</div>
+           
             <div className='w-full'>
                 {books.length>0?<MyMapComponent />:null}
             </div>
