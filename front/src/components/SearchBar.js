@@ -2,6 +2,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react';
 import { searchByAuthorFirst, searchByTitle, searchByAuthorLast, fetchCategories, searchByCategory,searchByAge, fetchAges } from '../redux/booksSlice';
+import { Select, TextInput } from 'flowbite-react';
 
 function SearchBar() {
   const books = useSelector((state) => state.books.booksArr);
@@ -17,30 +18,29 @@ function SearchBar() {
   return (
     <>
 
-      <div>SearchBar</div>
-      {/* //search by title */}
-      <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+      <div className='bg-indigo-200 h-screen '>
+        {/* //search by title */}
+      <label htmlFor="title" className="block text-sm p-1 font-medium text-gray-700">
         by Title
       </label>
-      <input type="text" name="title" id="title" onChange={(e) => dispatch(searchByTitle(e.target.value))}
-        className="block rounded-md border-grey-300  pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+      <TextInput type="text" name="title" id="title" placeholder='title' className='m-2 w-2/3' onChange={(e) => dispatch(searchByTitle(e.target.value))}      
       />
 
       {/* //search by author first&last name */}
-      <label htmlFor="autorFirstName" className="block text-sm font-medium text-gray-700">
+      <label htmlFor="autorFirstName" className="block p-1 text-sm font-medium text-gray-700">
         by Author
       </label>
-      <input type="text" name="autorFirstName" id="autorFirstName" placeholder='first name' onChange={(e) => dispatch(searchByAuthorFirst(e.target.value))}
+      <TextInput type="text" name="autorFirstName" id="autorFirstName" className='m-2 w-2/3' placeholder='first name' onChange={(e) => dispatch(searchByAuthorFirst(e.target.value))}
       />
-      <input type="text" name="autorLastName" id="autorLastName" placeholder='last name' onChange={(e) => dispatch(searchByAuthorLast(e.target.value))}
+      <TextInput type="text" name="autorLastName" id="autorLastName" className='m-2 w-2/3' placeholder='last name' onChange={(e) => dispatch(searchByAuthorLast(e.target.value))}
       />
 
 
       {/* //search by category */}
-      <label htmlFor="" className="block text-sm font-medium text-gray-700">
+      <label htmlFor="" className="block p-1 text-sm font-medium text-gray-700">
         by category
       </label>
-      <select className='block' onChange={(e) => dispatch(searchByCategory(e.target.value))}>
+      <Select className='block m-2 w-2/3' onChange={(e) => dispatch(searchByCategory(e.target.value))}>
         <option></option>
         {
           categories.map((item,i) => {
@@ -49,13 +49,13 @@ function SearchBar() {
             )
           })
         }
-      </select>
+      </Select>
 
       {/* search by age */}
-      <label htmlFor="" className="block text-sm font-medium text-gray-700">
+      <label htmlFor="" className="block p-1 text-sm font-medium text-gray-700">
         by age
       </label>
-      <select className='block' onChange={(e) => dispatch(searchByAge(e.target.value))}>
+      <Select className='block m-2 w-2/3' onChange={(e) => dispatch(searchByAge(e.target.value))}>
         <option></option>
         {
           ages.map((item,i) => {
@@ -64,7 +64,9 @@ function SearchBar() {
             )
           })
         }
-      </select>
+      </Select>
+      </div>
+      
     </>
   )
 }
