@@ -6,14 +6,16 @@ import BooksTable from './BooksTable';
 import AddBook from './AddBook';
 import MyRequests from './MyRequests';
 import jwt_decode from 'jwt-decode';
-import { fetchUser } from '../redux/usersSlice';
-import { fetchMyRequests } from '../redux/assigningSlice';
+import { fetchUser,setToken } from '../redux/usersSlice';
+import { useNavigate } from 'react-router';
+ 
 
 function MyBooks() {
   const dispatch = useDispatch();
   const myBooks = useSelector(state => state.books.myBooks);
   const user = useSelector(state => state.users.user);
   const token = useSelector(state => state.users.token);
+  const navigate=useNavigate();
 
   useEffect(() => {
     console.log(user);
@@ -26,6 +28,22 @@ function MyBooks() {
       dispatch(fetchMyBooks(user.user_id))
     }
   }, [])
+
+  useEffect(()=>{
+    try{
+      const decode = jwt_decode(token);
+      const expire = decode.exp;
+      if(expire * 1000 < new Date().getTime()){
+        setToken(null);
+        navigate('/login')
+      }
+    }
+    catch(e){
+      console.log(e);
+      setToken(null);
+      navigate('/login')
+    }
+  },[token]);
 
   return (
     <>

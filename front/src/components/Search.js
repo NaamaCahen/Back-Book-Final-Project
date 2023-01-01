@@ -5,6 +5,8 @@ import { useEffect } from 'react';
 import { fetchBooks, initilizeSearch } from '../redux/booksSlice';
 import Book from './Book';
 import jwt_decode from 'jwt-decode';
+import { setToken } from '../redux/usersSlice';
+import { useNavigate } from 'react-router';
 
 
 function Search() { 
@@ -16,6 +18,7 @@ function Search() {
   const age=useSelector(state=>state.books.byAge);
   const token=useSelector(state=>state.users.token);//for case he refreshes the page, refetch the books
   const dispatch=useDispatch();
+  const navigate=useNavigate();
 
   useEffect(()=>{
     dispatch(initilizeSearch())
@@ -24,6 +27,22 @@ function Search() {
       dispatch(fetchBooks(decode.user_id));
     }
   },[])
+
+  useEffect(()=>{
+    try{
+      const decode = jwt_decode(token);
+      const expire = decode.exp;
+      if(expire * 1000 < new Date().getTime()){
+        setToken(null);
+        navigate('/login')
+      }
+    }
+    catch(e){
+      console.log(e);
+      setToken(null);
+      navigate('/login')
+    }
+  },[token]);
 
   return (
     <>
