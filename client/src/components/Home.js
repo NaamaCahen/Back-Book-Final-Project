@@ -3,7 +3,7 @@ import React from 'react'
 import {MyMapComponent} from './Map';
 import { useState,useEffect } from 'react';
 import { useSelector,useDispatch } from 'react-redux';
-import { fetchBooks } from '../redux/booksSlice';
+import { fetchBooks, fetchMyBooks } from '../redux/booksSlice';
 import jwt_decode from 'jwt-decode';
 import { fetchUser, setToken} from '../redux/usersSlice';
 import { useNavigate } from 'react-router';
@@ -18,6 +18,7 @@ function Home() {
         const decode=jwt_decode(token);
         dispatch(fetchUser(decode.user_id))
         dispatch(fetchBooks(decode.user_id))
+        dispatch(fetchMyBooks(decode.user_id))
     },[])
 
     useEffect(()=>{

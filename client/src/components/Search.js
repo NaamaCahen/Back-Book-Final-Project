@@ -22,10 +22,10 @@ function Search() {
 
   useEffect(() => {
     dispatch(initilizeSearch())
-    if (books.length === 0) {
-      const decode = jwt_decode(token)
-      dispatch(fetchBooks(decode.user_id));
-    }
+    // if (books.length === 0) {
+    //   const decode = jwt_decode(token)
+    //   dispatch(fetchBooks(decode.user_id));
+    // }
   }, [])
 
   useEffect(() => {

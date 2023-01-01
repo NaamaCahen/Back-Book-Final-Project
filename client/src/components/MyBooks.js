@@ -17,17 +17,17 @@ function MyBooks() {
   const token = useSelector(state => state.users.token);
   const navigate=useNavigate();
 
-  useEffect(() => {
-    console.log(user);
-    if (user.user_id === undefined) {
-      const decode = jwt_decode(token);
-      console.log(decode);
-      dispatch(fetchUser(decode.user_id))
-      dispatch(fetchMyBooks(decode.user_id))
-    } else {
-      dispatch(fetchMyBooks(user.user_id))
-    }
-  }, [])
+  // useEffect(() => {
+  //   console.log(user);
+  //   if (user.user_id === undefined) {
+  //     const decode = jwt_decode(token);
+  //     console.log(decode);
+  //     dispatch(fetchUser(decode.user_id))
+  //     dispatch(fetchMyBooks(decode.user_id))
+  //   } else {
+  //     dispatch(fetchMyBooks(user.user_id))
+  //   }
+  // }, [])
 
   useEffect(()=>{
     try{
