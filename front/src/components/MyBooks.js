@@ -47,7 +47,6 @@ function MyBooks() {
 
   return (
     <>
-      <h1>MyBooks</h1>
       {myBooks.length > 0 ? <div>
         <Tabs.Group aria-label="Tabs with underline" style="underline">
           <Tabs.Item title="sharing">
@@ -63,7 +62,7 @@ function MyBooks() {
             <BooksTable tab='given' filtered={myBooks.filter(item => item.status_name === 'given')} />
           </Tabs.Item>
         </Tabs.Group>
-      </div> : <h3>no books for now</h3>}
+      </div> : <h3 className=' text-center text-3xl text-indigo-500'>no books for now</h3>}
       <AddBook />
       <MyRequests />
     </>
