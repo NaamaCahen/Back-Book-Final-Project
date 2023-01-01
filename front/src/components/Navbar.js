@@ -4,6 +4,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom';
 import { useEffect ,useState} from 'react';
 import { useNavigate } from 'react-router-dom';
+import logo from '../logo/logo.png'
 
 const navigation = [
     { id: 0, name: 'Home', href: '/home', current: true },
@@ -50,8 +51,8 @@ export default function Navbar() {
 
     return (
         <>
-        
-        <Disclosure as="nav" className="bg-gray-800">
+        {
+            <Disclosure as="nav" className="bg-indigo-700">
             {({ open }) => (
                 <>
                     <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -70,14 +71,14 @@ export default function Navbar() {
                             <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                                 <div className="flex flex-shrink-0 items-center">
                                     <img
-                                        className="block h-8 w-auto lg:hidden"
-                                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                                        alt="Your Company"
+                                        className="block h-10 w-auto lg:hidden"
+                                        src={logo}
+                                        alt="Back Book"
                                     />
                                     <img
-                                        className="hidden h-8 w-auto lg:block"
-                                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                                        alt="Your Company"
+                                        className="hidden h-10 w-auto lg:block"
+                                        src={logo}
+                                        alt="Back Book"
                                     />
                                 </div>
                                 <div className="hidden sm:ml-6 sm:block">
@@ -85,7 +86,7 @@ export default function Navbar() {
                                         {navigation.map((item) => (
                                             <Link key={item.name} to={item.href} onClick={() => setCurrent(item.id)}  className={classNames(
                                                 
-                                                active===item.id ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                                active===item.id ? 'bg-indigo-800 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                                                 'px-3 py-2 rounded-md text-sm font-medium'
                                             )}
                                                 
@@ -175,7 +176,9 @@ export default function Navbar() {
                     </Disclosure.Panel>
                 </>
             )}
-        </Disclosure>
+        </Disclosure> 
+        }
+      
        </>
     )
 }

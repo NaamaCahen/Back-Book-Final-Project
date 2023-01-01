@@ -27,12 +27,12 @@ export const register=async(req,res)=>{
         const user_id=rows[0].user_id;
         const email=rows[0].email;
         const token=jwt.sign({user_id,email},process.env.ACCESS_TOKEN_SECRET,{
-            expiresIn:'30s'
+            expiresIn:'600s'
         });
 
         res.cookie('accessToken',token,{
             httpOnly:true,
-            maxAge:30*1000
+            maxAge:600*1000
         });
 
         res.json({token:token})
@@ -56,12 +56,12 @@ export const login=async(req,res)=>{
         const email=user[0].email;
 
         const token=jwt.sign({user_id,email},process.env.ACCESS_TOKEN_SECRET,{
-            expiresIn:'30s'
+            expiresIn:'600s'
         });
 
         res.cookie('accessToken',token,{
             httpOnly:true,
-            maxAge:30*1000
+            maxAge:600*1000
         });
         console.log(res.cookie.accessToken);
         res.json({token:token})
@@ -96,12 +96,12 @@ export const token=(req,res)=>{
     console.log(decode.user_id,decode.email);
 
     const token=jwt.sign({user_id:decode.user_id,email:decode.email},process.env.ACCESS_TOKEN_SECRET,{
-        expiresIn:'120s'
+        expiresIn:'600s'
     });
 
     res.cookie('accessToken',token,{
         httpOnly:true,
-        maxAge:120*1000
+        maxAge:600*1000
     });
 
     res.status(200).json({token:accessToken})

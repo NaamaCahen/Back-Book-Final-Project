@@ -46,22 +46,25 @@ function MyRequests() {
 
   return (
     <>
-      {myRequests.length > 0 ? <h1>your books are requested!</h1> : null}
+      {myRequests.length > 0 ? <h1 className='text-xl text-indigo-500 font-bold m-4'>your books are requested!</h1> : null}
       {myRequests.length > 0 ?
         myRequests.map(item => {
           return (
             <>
-              <Alert color="info">
+            <div className='sm:w-screen md:w-2/3 md:m-auto  '>
+               <Alert color="info">
                 <span>
                   <span className="font-medium">
                     Request for book:{myBooks.find(book => book.book_id === item.book_id).title}
                   </span>
                   <div className='flex '>
-                    <Button outline={true} onClick={() => setDetails(true)}>more details</Button>
+                    {/* <Button outline={true} onClick={() => setDetails(true)}>more details</Button> */}
                     <Button onClick={() => setOpenModal(true)}>give</Button>
                   </div>
                 </span>
               </Alert>
+            </div>
+             
 
               {/* //details modal */}
               <Modal show={details} onClose={() => setDetails(false)}>

@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import Book from './Book';
 import L from 'leaflet';
 import MarkerClusterGroup from 'react-leaflet-cluster';
+import logo from '../logo/logo.png'
 
 function MyComponent(props) {
   const map = useMap(L.Events)
@@ -24,8 +25,8 @@ export function MyMapComponent() {
   const [position, setPosition] = useState([user.lat, user.long])
   console.log(position);
   const bookIcon = new L.icon({
-    iconUrl: `https://iconpacks.net/icons/2/free-opened-book-icon-3163-thumb.png`,
-    iconSize: [35, 45]
+    iconUrl:'https://w7.pngwing.com/pngs/469/374/png-transparent-ibooks-computer-icons-desktop-ios-7-book-miscellaneous-blue-angle.png',
+    iconSize: [45, 35]
   })
 
   useEffect(() => {
