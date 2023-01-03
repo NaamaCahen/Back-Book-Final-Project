@@ -25,8 +25,8 @@ function Register() {
                     const user = {
                         email: e.target.email.value,
                         password: e.target.password.value,
-                        user_first_name: e.target.first_name.value,
-                        user_last_name: e.target.last_name.value,
+                        user_first_name: e.target.firstName.value,
+                        user_last_name: e.target.lastName.value,
                         country,
                         city,
                         street,
@@ -89,7 +89,7 @@ function Register() {
                     <div className="mb-2 block">
                         <Label htmlFor='lastName' value='last name' />
                     </div>
-                    <TextInput type='text' required placeholder='last name' name='last_name' id='last_name'  />
+                    <TextInput type='text' required placeholder='last name' name='lastName' id='lastName'  />
 
                     <div className="mb-2 block">
                         <Label htmlFor='country' value='country' />
@@ -107,7 +107,7 @@ function Register() {
                 <TextInput type='text' required placeholder='street' name='street' id='street'  />
 
                 <div className="mb-2 block">
-                        <Label htmlFor='numHouse' value='house number' />
+                        <Label htmlFor='num_house' value='house number' />
                     </div>
                 <TextInput type='number' required placeholder='house number' name='num_house' id='num_house'  />
 
