@@ -1,12 +1,14 @@
 import { useSelector, useDispatch } from "react-redux";
 import { Button, Label, Modal, TextInput, Card } from 'flowbite-react'
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 const Profile = () => {
     const user = useSelector(state => state.users.user);
     const dispatch = useDispatch();
     const [openModal, setOpenModal] = useState(false);
+    const navigate = useNavigate();
 
 
     const save = (e) => {
@@ -52,6 +54,16 @@ const Profile = () => {
 
     }
 
+    const back = () =>{
+        navigate('/home')
+    }
+
+    const closeModal = ()=>{
+        console.log('in the close modal func');
+        setOpenModal(false);
+        back();
+    }
+
     return (
         <>
             <Card className="sm:w-full md:w-1/2 lg:w-1/3 mt-20 m-auto">
@@ -81,16 +93,17 @@ const Profile = () => {
 
                     <Button type="submit" className="m-5">save changes</Button>
                 </form>
+                <Button className="m-5" onClick={back}>back</Button>
 
             </Card>
 
             <React.Fragment>
-                <Modal show={openModal} onClose={() => setOpenModal(false)}>
+                <Modal show={openModal} onClose={closeModal}>
                     <Modal.Header />
                     <Modal.Body>
                         <h3 className="text-indigo-800 text-lg text-center">profile changes were successfully updated!</h3>
                     </Modal.Body>
-                    <Modal.Footer><Button onClick={() => setOpenModal(false)}>ok</Button></Modal.Footer>
+                    <Modal.Footer><Button onClick={closeModal}>ok</Button></Modal.Footer>
                 </Modal>
             </React.Fragment>
         </>
