@@ -80,7 +80,7 @@ function Book(props) {
                         <Modal.Body>
                             {
                                 failed ? 'OOPS...  cannot allow multiple requests for the same book ' : `Great! 
-                        your request was duccessfully sent to the current owner of the book.
+                        your request was successfully sent to the current owner of the book.
                         here are his contact details:
                         phone :${props.book.phone}
                         email:${props.book.email}
