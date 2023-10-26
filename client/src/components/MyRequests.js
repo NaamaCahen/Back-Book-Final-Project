@@ -12,7 +12,7 @@ function MyRequests() {
   const myBooks = useSelector(state => state.books.myBooks)
   const [details, setDetails] = useState(false) //modal to display more details
   const [openModal, setOpenModal] = useState(false);
-  const [numRequest, setNumRequest] = useState(0);
+  // const [numRequest, setNumRequest] = useState(0);
   const [refetch,setRefetch]=useState();
 
   useEffect(() => {
@@ -24,7 +24,7 @@ function MyRequests() {
     dispatch(fetchMyRequests(user.user_id))
   },[refetch])
 
-  const give = () => {
+  const give = (num) => {
     setOpenModal(false);
     fetch(`/acceptReq`, {
       method: 'POST',
@@ -32,9 +32,9 @@ function MyRequests() {
         'Content-Type': 'Application/json'
       },
       body: JSON.stringify({
-        book_assigning_id: myRequests[numRequest].book_assigning_id,
+        book_assigning_id: myRequests[num].book_assigning_id,
         receivedat: new Date().toISOString().split('T')[0],
-        from_user: myRequests[numRequest].from_user,
+        from_user: myRequests[num].from_user,
       })
     }).then(res => res.json())
       .then(msg => {
@@ -48,7 +48,7 @@ function MyRequests() {
     <>
       {myRequests.length > 0 ? <h1 className='text-xl text-indigo-500 font-bold m-4'>your books are requested!</h1> : null}
       {myRequests.length > 0 ?
-        myRequests.map(item => {
+        myRequests.map((item,i) => {
           return (
             <>
             <div className='sm:w-screen md:w-2/3 md:m-auto  '>
@@ -91,7 +91,7 @@ function MyRequests() {
                       Are you sure you want to give this book?
                     </h3>
                     <div className="flex justify-center gap-4">
-                      <Button gradientDuoTone='purpleToBlue' onClick={give}>
+                      <Button gradientDuoTone='purpleToBlue' onClick={()=>give(i)}>
                         Yes, I'm sure
                       </Button>
                       <Button color="gray" onClick={() => setOpenModal(false)}>
