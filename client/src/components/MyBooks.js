@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router';
 function MyBooks() {
   const dispatch = useDispatch();
   const myBooks = useSelector(state => state.books.myBooks);
+  const books = useSelector(state => state.books.booksArr);//just for desplaying the book owner details in the requested tab of the table
   const user = useSelector(state => state.users.user);
   const token = useSelector(state => state.users.token);
   const navigate=useNavigate();
@@ -56,7 +57,7 @@ function MyBooks() {
             <BooksTable tab='received' filtered={myBooks.filter(item => item.status_name === 'received' && item.status_description === 'reading')} />
           </Tabs.Item>
           <Tabs.Item title="requested">
-            <BooksTable tab='requested' filtered={myBooks.filter(item => item.status_name === 'request')} />
+            <BooksTable tab='requested' filtered={myBooks.filter(item => item.status_name === 'request')} books={books} />
           </Tabs.Item>
           <Tabs.Item title="given">
             <BooksTable tab='given' filtered={myBooks.filter(item => item.status_name === 'given')} />

@@ -116,11 +116,11 @@ function BooksTable(props) {
                                         }
                                         </Table.Cell>
                                         <Table.Cell>
-                                            {
+                                            {//showing the owner book details 
                                                 props.tab ==='requested'?
                                                 <>
-                                                <p>phone: {item.phone}</p>
-                                                <p>email: {item.email}</p>
+                                                <p>phone: {props.books.find(book=>book.book_id===item.book_id).phone}</p>
+                                                <p>email: {props.books.find(book=>book.book_id===item.book_id).email}</p>
                                                 </>
                                                 :null
                                             }
