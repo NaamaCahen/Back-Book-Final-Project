@@ -96,7 +96,7 @@ function BooksTable(props) {
                                         </Table.Cell>
 
                                         <Table.Cell>
-                                            {(item.addedat || item.receivedat || item.requestedat).substr(0, 10)}
+                                            { props.tab === 'given' ? item.givenat.substr(0, 10) : (item.addedat || item.receivedat || item.requestedat).substr(0, 10)}
                                         </Table.Cell>
                                         <Table.Cell>
                                         {props.tab === 'received' ?
